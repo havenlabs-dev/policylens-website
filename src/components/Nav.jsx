@@ -29,18 +29,14 @@ export default function Nav() {
         {/* Logo */}
         <a
           href="#"
-          className="flex items-center gap-2.5 group"
+          className="flex items-center group"
           aria-label="PolicyLens home"
         >
-          <div className="w-7 h-7 rounded-md bg-teal-500 flex items-center justify-center flex-shrink-0 group-hover:bg-teal-400 transition-colors">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <path
-                d="M2 2h10v1.5H2V2zm0 3h7v1.5H2V5zm0 3h9v1.5H2V8zm0 3h5v1.5H2V11z"
-                fill="white"
-              />
-            </svg>
-          </div>
-          <span className="text-white font-semibold text-base tracking-tight">PolicyLens</span>
+          <img
+            src="/images/PolicyLensHeader.png"
+            alt="PolicyLens"
+            className="h-8 w-auto brightness-0 invert opacity-90 group-hover:opacity-100 transition-opacity"
+          />
         </a>
 
         {/* Desktop nav */}
