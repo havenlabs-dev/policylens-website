@@ -3,6 +3,7 @@ import Hero from './components/Hero'
 import Problem from './components/Problem'
 import HowItWorks from './components/HowItWorks'
 import Features from './components/Features'
+import IndustriesBand from './components/IndustriesBand'
 import Tiers from './components/Tiers'
 import Security from './components/Security'
 import Footer from './components/Footer'
@@ -16,6 +17,7 @@ export default function App() {
         <Problem />
         <HowItWorks />
         <Features />
+        <IndustriesBand />
         <Tiers />
         <Security />
       </main>

@@ -118,9 +118,9 @@ export default function HowItWorks() {
 
         {/* Steps */}
         <div className="relative">
-          {/* Connector line — desktop only */}
+          {/* Connector line — desktop only, fixed with arbitrary values */}
           <div
-            className="hidden lg:block absolute top-12 left-1/6 right-1/6 h-px"
+            className="hidden lg:block absolute top-12 left-[16%] right-[16%] h-px"
             style={{
               background:
                 'linear-gradient(90deg, transparent, rgba(20,184,166,0.2) 20%, rgba(20,184,166,0.2) 80%, transparent)',

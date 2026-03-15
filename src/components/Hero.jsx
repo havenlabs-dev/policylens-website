@@ -48,8 +48,8 @@ function DocumentIllustration() {
         </div>
       </div>
 
-      {/* Floating confidence badge */}
-      <div className="absolute -top-3 -right-3 bg-navy-700 border border-teal-500/30 rounded-full px-3 py-1 text-xs text-teal-400 font-medium shadow-lg">
+      {/* Floating confidence badge — pulses to draw the eye */}
+      <div className="badge-pulse absolute -top-3 -right-3 bg-navy-700 border border-teal-500/30 rounded-full px-3 py-1 text-xs text-teal-400 font-medium shadow-lg">
         High confidence
       </div>
     </div>
@@ -71,7 +71,7 @@ export default function Hero() {
   return (
     <section
       ref={ref}
-      className="relative min-h-screen flex items-center pt-16 overflow-hidden"
+      className="relative min-h-[85vh] flex items-center pt-16 overflow-hidden"
       aria-labelledby="hero-headline"
     >
       {/* Background layers */}
@@ -82,7 +82,7 @@ export default function Hero() {
         aria-hidden="true"
       />
 
-      <div className="relative max-w-6xl mx-auto px-6 py-24 lg:py-32 w-full">
+      <div className="relative max-w-6xl mx-auto px-6 py-20 lg:py-28 w-full">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left: copy */}
           <div>
@@ -158,8 +158,8 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right: illustration */}
-          <div className="hero-reveal opacity-0 lg:block">
+          {/* Right: illustration — desktop only */}
+          <div className="hidden lg:block hero-reveal opacity-0">
             <DocumentIllustration />
           </div>
         </div>

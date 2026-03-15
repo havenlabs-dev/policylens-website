@@ -4,23 +4,38 @@ import { useScrollReveal } from '../hooks/useScrollReveal'
 export default function Footer() {
   const sectionRef = useScrollReveal()
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
   const [email, setEmail] = useState('')
   const [org, setOrg] = useState('')
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
     if (!email.trim()) {
       setError('Please enter your email address.')
       return
     }
-    const subject = encodeURIComponent('PolicyLens — Access Request')
-    const body = encodeURIComponent(
-      `Name/Organization: ${org || '(not provided)'}\n\nMessage:\n${message || '(none)'}\n\nReply to: ${email}`
-    )
-    window.location.href = `mailto:hello@havenlabs.io?subject=${subject}&body=${body}`
-    setSubmitted(true)
+    setSubmitting(true)
+    setError('')
+    try {
+      // Replace REPLACE_WITH_YOUR_FORM_ID with your Formspree form ID
+      // Sign up free at formspree.io, create a form, and paste the ID here
+      const res = await fetch('https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ email, organization: org, message }),
+      })
+      if (res.ok) {
+        setSubmitted(true)
+      } else {
+        setError('Something went wrong. Email us directly at hello@havenlabs.io')
+      }
+    } catch {
+      setError('Something went wrong. Email us directly at hello@havenlabs.io')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -80,10 +95,9 @@ export default function Footer() {
                   />
                 </svg>
               </div>
-              <p className="text-white font-semibold text-lg mb-2">Request sent</p>
+              <p className="text-white font-semibold text-lg mb-2">Request received</p>
               <p className="text-white/55 text-sm leading-relaxed">
-                Your email client should have opened with the request details. We will follow up
-                directly.
+                Thanks — we’ll follow up directly within one business day.
               </p>
             </div>
           ) : (
@@ -161,22 +175,25 @@ export default function Footer() {
 
               <button
                 type="submit"
-                className="mt-5 w-full flex items-center justify-center gap-2 px-6 py-3 bg-teal-500 hover:bg-teal-400 text-navy-900 font-semibold text-sm rounded-md transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-800"
+                disabled={submitting}
+                className="mt-5 w-full flex items-center justify-center gap-2 px-6 py-3 bg-teal-500 hover:bg-teal-400 disabled:opacity-60 disabled:cursor-not-allowed text-navy-900 font-semibold text-sm rounded-md transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-800"
               >
-                Request Access
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <path
-                    d="M3 7h8M7 3l4 4-4 4"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                {submitting ? 'Sending…' : 'Request Access'}
+                {!submitting && (
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                    <path
+                      d="M3 7h8M7 3l4 4-4 4"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                )}
               </button>
 
               <p className="mt-4 text-center text-xs text-white/30">
-                This will open your email client. We respond within one business day.
+                We respond within one business day.
               </p>
             </form>
           )}
@@ -197,7 +214,14 @@ export default function Footer() {
               <div>
                 <span className="text-white font-semibold text-sm">PolicyLens</span>
                 <span className="text-white/25 text-sm mx-2" aria-hidden="true">·</span>
-                <span className="text-white/35 text-sm">by HavenLabs</span>
+                <a
+                  href="https://havenlabs.io"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/35 text-sm hover:text-white/60 transition-colors"
+                >
+                  by HavenLabs
+                </a>
               </div>
             </div>
 
